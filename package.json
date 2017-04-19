@@ -1,0 +1,22 @@
+{
+  "name": "bamazon",
+  "version": "1.0.3",
+  "description": "warehouse eCommerce study",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlintSable/bamazon.git"
+  },
+  "keywords": [
+    "batman"
+  ],
+  "author": "NN",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FlintSable/bamazon/issues"
+  },
+  "homepage": "https://github.com/FlintSable/bamazon#readme"
+}
