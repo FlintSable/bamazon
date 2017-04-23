@@ -43,40 +43,37 @@ var showShopData = function() {
 
 var selectID = function(itemIDLen) {
     inquirer.prompt([{
-            name: 'ID',
-            type: 'input',
-            message: 'Please input the ID of the item you would like to purchase',
-            validate: function(value) {
-                if (isNaN(value) === false && (value <= itemIDLen) && (value != 0)) {
-                    return true;
-                } else {
-                    return false;
-                }
+        name: 'ID',
+        type: 'input',
+        message: 'Please input the ID of the item you would like to purchase',
+        validate: function(value) {
+            if (isNaN(value) === false && (value <= itemIDLen) && (value != 0)) {
+                return true;
+            } else {
+                return false;
             }
-        }, {
-            name: 'qty',
-            message: 'Enter purchase quantity: ',
-            validate: function(value){
-                if(isNaN(value) === false){
-                    return true;
-                }else{
-                    return false;
-                }
-                
+        }
+    }, {
+        name: 'qty',
+        message: 'Enter purchase quantity: ',
+        validate: function(value) {
+            if (isNaN(value) === false) {
+                return true;
+            } else {
+                return false;
             }
-        }]).then(function(answers){
-            con.query('SELECT * FROM products WHERE ?', {id: answers.ID}, function(err, res){
-               if(answers.qty> res[0].stock_quantity){
+
+        }
+    }]).then(function(answers) {
+        con.query('SELECT * FROM products WHERE ?', { id: answers.ID }, function(err, res) {
+            if (answers.qty > res[0].stock_quantity) {
                 console.log('itme is currently not avalible');
                 con.end();
-               } else{ 
+            } else {
                 console.log('order will be processed');
-               }
-            });
-        
+            }
         });
 
-
-    
+    });
 
 };
