@@ -1,6 +1,5 @@
 CREATE DATABASE ICECREAMER2;
-CREATE DATABASE Bamazon;
-USE Bamazon;
+
 DELETE FROM top5000;
 
  LOAD DATA LOCAL INFILE  
@@ -22,17 +21,6 @@ CREATE TABLE  songs(
   -- Makes an numeric col
   PRIMARY KEY (id)
 );
-
-
- CREATE TABLE products (
-  id INT(255) AUTO_INCREMENT NOT NULL,
-  product_name VARCHAR(100) NULL,
-  department_name VARCHAR(100) NULL,
-  price FLOAT(65,2) NULL,
-  stock_quantity INT(255) NULL,
-  PRIMARY KEY (id)
- );
-
 
 SET SESSION sql_mode = '';
 -- use sta
