@@ -1,26 +1,23 @@
 var conetable = require("console.table");
 var inquirer = require('inquirer');
 
-const creds = require('../models/batCreds');
-var shop = require('./shopping');
-
 
 // sudo code
 
 
 var userLogin = {
-    enter: function(){
+    enter: function() {
         inquirer.prompt({
             name: 'user',
             type: 'input',
             message: 'Login: '
-        }).then(function(answers){
-            if(answers.user){
-                shop.shoppingMachine.start();
-                // shop.shoppingMachine.start();
-            }else if(answers.user === 'Manager'){
+        }).then(function(answers) {
+            if (answers.user) {
+                var shop = require('./shopping');
+                shop.shopingMachine(answers.user);
+            } else if (answers.user === 'Manager') {
                 console.log('building functionality, please talk to ...');
-            }else if(answers.user === 'supervisor'){
+            } else if (answers.user === 'supervisor') {
                 console.log('building functionality, please talk to ...');
             }
         });
@@ -32,12 +29,6 @@ userLogin.enter();
 
 
 
-creds.connection.connect(function(err) {
-    if (err) throw err;
-    console.log("connected as id " + creds.connection.threadId);
-    // shoppingMachine.start();
-
-});
 
 
 // 5
@@ -52,7 +43,7 @@ creds.connection.connect(function(err) {
 
 // 6 
 // ask the id of the item
-// ask the quantity	
+// ask the quantity 
 // shoping mode
 
 
