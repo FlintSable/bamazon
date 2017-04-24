@@ -71,9 +71,21 @@ var selectID = function(itemIDLen) {
                 con.end();
             } else {
                 console.log('order will be processed');
+                updateInventory(answers.qty, answers.ID);
             }
         });
 
     });
 
 };
+
+var updateInventory = function(qty, ID){
+
+    updateOBJ = [{ stock_quantity: qty }, { item_id: ID }];
+    query = 'UPDATE products SET ? WHERE ?';
+    con.query(query, updateOBJ, function(err){
+        console.log('something happend, you made a purchase');
+
+    });
+    
+};  
