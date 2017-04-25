@@ -67,11 +67,14 @@ var selectID = function(itemIDLen) {
     }]).then(function(answers) {
         con.query('SELECT * FROM products WHERE ?', { id: answers.ID }, function(err, res) {
             if (answers.qty > res[0].stock_quantity) {
-                console.log('itme is currently not avalible');
+                console.log('item is currently not avalible');
                 con.end();
             } else {
-                console.log('order will be processed');
-                updateInventory(answers.qty, answers.ID);
+                console.log('order will be processed' + answers.qty + answers.ID);
+                var newQty = res[0].stock_quantity - answers.qty;
+                cost = res[0].price * answers.qty;
+                itemName = res[0].product_name;
+                confirmPurchase(answers.ID, itemName, answers.qty, cost, newQty);
             }
         });
 
@@ -79,13 +82,39 @@ var selectID = function(itemIDLen) {
 
 };
 
-var updateInventory = function(qty, ID){
+var confirmPurchase = function(ID, itemName, qty, cost, updateQty){
+    inquirer.prompt([{
+        name: 'finalizePur',
+        type: 'confirm',
+        message: 'Order now? \n' + itemName + ' \n---QTY: ' + qty + ' \n---TOTAL: ' + cost
 
-    updateOBJ = [{ stock_quantity: qty }, { item_id: ID }];
+
+    }]).then(function(answers){
+        if(answers.finalizePur){
+            updateInventory(updateQty, ID);
+        } else{
+            console.log('what would you like to do?');
+        }
+
+    });
+
+
+};
+
+                // updateInventory(newQty, answers.ID);
+
+
+
+
+var updateInventory = function(qty, ID) {
+
+    updateOBJ = [{ stock_quantity: qty }, { id: ID }];
     query = 'UPDATE products SET ? WHERE ?';
-    con.query(query, updateOBJ, function(err){
+    con.query(query, updateOBJ, function(err) {
+        if (err) throw err;
         console.log('something happend, you made a purchase');
 
     });
-    
-};  
+
+
+};
