@@ -25,7 +25,12 @@ var userLogin = {
 
 };
 
+
 userLogin.enter();
+
+
+module.exports = userLogin;
+
 
 
 
